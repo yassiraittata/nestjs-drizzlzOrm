@@ -29,4 +29,30 @@ export class UsersService {
 
     return newUser;
   }
+
+  async findByEmail(email: string) {
+    const user = await this.db.query.users.findFirst({
+      where: eq(schema.users.email, email),
+    });
+
+    if (!user) return undefined;
+
+    return user;
+  }
+
+  async findById(id: number) {
+    const user = await this.db.query.users.findFirst({
+      where: eq(schema.users.id, id),
+    });
+
+    if (!user) return undefined;
+
+    return user;
+  }
+
+  async updateUser(data: Partial<CreateUserDto>) {
+    const user = await this.db.update(schema.users).set({ ...data });
+
+    return user;
+  }
 }
