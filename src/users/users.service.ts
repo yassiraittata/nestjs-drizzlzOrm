@@ -1,11 +1,11 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import * as argon from 'argon2';
+import { eq } from 'drizzle-orm';
 
 import { DrizzleAsyncProvider } from '../drizzle/drizzle.provider';
 import * as schema from '../drizzle/schema';
 import { CreateUserDto } from './dto';
-import { eq } from 'drizzle-orm';
 
 @Injectable()
 export class UsersService {
@@ -54,5 +54,9 @@ export class UsersService {
     const user = await this.db.update(schema.users).set({ ...data });
 
     return user;
+  }
+
+  async deleteUser(id: number) {
+    await this.db.delete(schema.users).where(eq(schema.users.id, id));
   }
 }
