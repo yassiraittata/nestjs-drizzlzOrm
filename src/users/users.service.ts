@@ -56,7 +56,4 @@ export class UsersService {
     return user;
   }
 
-  async deleteUser(id: number) {
-    await this.db.delete(schema.users).where(eq(schema.users.id, id));
-  }
 }
