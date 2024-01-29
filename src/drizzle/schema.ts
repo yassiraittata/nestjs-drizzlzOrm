@@ -6,3 +6,10 @@ export const users = sqliteTable('user', {
   email: text('email'),
   password: text('password'),
 });
+
+export const posts = sqliteTable('posts', {
+  id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
+  title: text('title'),
+  text: text('text'),
+});
+
